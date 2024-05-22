@@ -3,8 +3,8 @@ from langchain.output_parsers import JsonOutputToolsParser, PydanticToolsParser
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.schema import HumanMessage
 from langchain_openai import ChatOpenAI
-from schemas import AnswerQuestion, ReviseAnswer
 from dotenv import load_dotenv, find_dotenv
+from app.schemas import AnswerQuestion, ReviseAnswer
 
 _ = load_dotenv(find_dotenv())
 
@@ -49,15 +49,6 @@ chain = (
     | parser_pydantic
 )
 
-res = chain.invoke(input={"messages": [human_message]})
-
-for inst in res[0]:
-    print(inst[0], end=": ")
-    print(inst[1])
-    print()
-    print()
-    print()
-
 revise_instructions = """Revise your previous answer using the new information.
 You should use the previous critique to add important information to your answer.
 You MUST include numerical citations in your revised answer to ensure it can be verified.
@@ -74,3 +65,14 @@ revisor_prompt_template = actor_prompt_template.partial(
 revisor = revisor_prompt_template | llm.bind_tools(
     tools=[ReviseAnswer], tool_choice="ReviseAnswer"
 )
+
+
+if __name__ == "__main__":
+    res = chain.invoke(input={"messages": [human_message]})
+
+    for inst in res[0]:
+        print(inst[0], end=": ")
+        print(inst[1])
+        print()
+        print()
+        print()
