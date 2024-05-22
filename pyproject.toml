@@ -16,9 +16,11 @@ pydantic = "<2"
 python-dotenv = "^1.0.1"
 langchain = "^0.2.0"
 langchain-openai = "^0.1.7"
-black = "^24.4.2"
 isort = "^5.13.2"
 langgraph = "^0.0.53"
+black = "^24.4.2"
+tavily-python = "^0.3.3"
+langchain-community = "^0.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -28,7 +30,6 @@ ipykernel = "^6.29.4"
 
 [tool.poetry.group.D.dependencies]
 ipynb = "^0.5.1"
-black = {extras = ["jupyter"], version = "^24.4.2"}
 
 [build-system]
 requires = ["poetry-core"]
